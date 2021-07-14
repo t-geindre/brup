@@ -30,7 +30,3 @@ void Weapon::setPosition(float x, float y) {
     posX = x;
     posY = y;
 }
-
-void Weapon::init(engine::Game *game) {
-    game->getUpdatePool()->push(this);
-}

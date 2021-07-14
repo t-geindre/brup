@@ -6,18 +6,11 @@ void brup::weapons::projectiles::Projectile::update(engine::Game *game) {
     yPosition += yVelocity * game->getElapsedTime();
 
     if (yPosition < 0 || yPosition > game->getRenderTarget()->getView().getSize().y) {
-        game->getUpdatePool()->remove(this);
-        game->getDrawPool()->remove(this);
-        delete this;
+        destroy(game);
     }
 }
 
 void brup::weapons::projectiles::Projectile::setPosition(float x, float y) {
     xPosition = x;
     yPosition = y;
-}
-
-void brup::weapons::projectiles::Projectile::init(engine::Game *game) {
-    game->getDrawPool()->push(this);
-    game->getUpdatePool()->push(this);
 }

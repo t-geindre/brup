@@ -7,7 +7,6 @@
 namespace brup::weapons {
     class LaserMachineGun : public Weapon {
         public:
-            LaserMachineGun();
             brup::weapons::projectiles::Projectile* getNewProjectile();
     };
 }

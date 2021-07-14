@@ -2,7 +2,6 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/ConvexShape.hpp>
 #include "Ship.h"
-#include "../../Engine/Game.h"
 
 void brup::player::Ship::draw(sf::RenderTarget *target) {
 
@@ -73,6 +72,5 @@ void brup::player::Ship::init(engine::Game *game) {
     xMove = 0;
     yMove = 0;
 
-    game->getDrawPool()->push(this);
-    game->getUpdatePool()->push(this);
+    engine::GameObject::init(game);
 }

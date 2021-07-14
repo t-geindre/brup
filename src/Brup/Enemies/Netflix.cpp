@@ -37,8 +37,7 @@ void Netflix::draw(sf::RenderTarget *target) {
 }
 
 void Netflix::init(engine::Game *game) {
-    game->getDrawPool()->push(this);
-    game->getUpdatePool()->push(this);
+    engine::GameObject::init(game);
 
     posX = rand() % ((int) game->getRenderTarget()->getSize().x + 200) - 100;
     posY = -30;
@@ -49,8 +48,6 @@ void Netflix::update(engine::Game *game) {
     posX = posX + sin(posY/80);
 
     if (posY > game->getRenderTarget()->getView().getSize().y + 30) {
-        game->getDrawPool()->remove(this);
-        game->getUpdatePool()->remove(this);
-        delete this;
+        destroy(game);
     }
 }
