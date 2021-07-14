@@ -1,8 +1,8 @@
 #ifndef GAME_GAMEOBJECT_H
 #define GAME_GAMEOBJECT_H
 
-#include "Updatable.h"
-#include "Drawable.h"
+#include "Update/Updatable.h"
+#include "Draw/Drawable.h"
 #include "Initable.h"
 #include "Game.h"
 

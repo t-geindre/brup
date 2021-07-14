@@ -1,8 +1,8 @@
 #ifndef GAME_STARS_H
 #define GAME_STARS_H
 
-#include "../../Engine/Updatable.h"
-#include "../../Engine/Drawable.h"
+#include "../../Engine/Update/Updatable.h"
+#include "../../Engine/Draw/Drawable.h"
 #include "../../Engine/Initable.h"
 #include "../../Engine/Game.h"
 #include "../../Engine/GameObject.h"

@@ -2,8 +2,8 @@
 #define GAME_GAME_H
 
 #include <SFML/Graphics.hpp>
-#include "DrawPool.h"
-#include "UpdatePool.h"
+#include "Draw/DrawPool.h"
+#include "Update/UpdatePool.h"
 #include "Initable.h"
 #include "Scene.h"
 

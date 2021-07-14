@@ -1,7 +1,7 @@
 #ifndef GAME_SCENE_H
 #define GAME_SCENE_H
 
-#include "Updatable.h"
+#include "Update/Updatable.h"
 #include "Initable.h"
 
 namespace engine {
