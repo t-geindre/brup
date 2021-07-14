@@ -3,7 +3,10 @@
 #include <SFML/Graphics/ConvexShape.hpp>
 #include "Ship.h"
 
-void brup::player::Ship::draw(sf::RenderTarget *target) {
+using namespace brup::player;
+using namespace brup::weapons;
+
+void Ship::draw(sf::RenderTarget *target) {
 
     sf::Vector2f topSpike(0, -35);
     sf::Vector2f leftCavity(-10, 0);
@@ -30,13 +33,13 @@ void brup::player::Ship::draw(sf::RenderTarget *target) {
     target->draw(ship);
   }
 
-void brup::player::Ship::setMovements(int x, int y)
+void Ship::setMovements(int x, int y)
 {
     xMove = x;
     yMove = y;
 }
 
-void brup::player::Ship::update(engine::Game *game)
+void Ship::update(engine::Game *game)
 {
     setMovements(
             sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ? -1 : (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ? 1 : 0),
@@ -60,11 +63,11 @@ void brup::player::Ship::update(engine::Game *game)
     weapon->setIsFiring(sf::Keyboard::isKeyPressed(sf::Keyboard::Space));
 }
 
-void brup::player::Ship::setWeapon(brup::weapons::Weapon *weapon) {
+void Ship::setWeapon(Weapon *weapon) {
     this->weapon = weapon;
 }
 
-void brup::player::Ship::init(engine::Game *game) {
+void Ship::init(engine::Game *game) {
 
     posX = game->getRenderTarget()->getView().getCenter().x;
     posY = game->getRenderTarget()->getView().getSize().y - 40.f;
