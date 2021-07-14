@@ -7,7 +7,7 @@
 namespace brup::scenes {
     class Main : public engine::Scene {
         public:
-            void reset(engine::Game *game);
+            void init(engine::Game *game);
             void update(engine::Game *game) override;
         private:
             int spawnRate = 300;

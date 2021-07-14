@@ -64,7 +64,7 @@ void Game::loadScene(Scene *scene) {
     updatePool->push(scene);
 
     this->scene = scene;
-    scene->reset(this);
+    scene->init(this);
 }
 
 Scene *Game::getScene() {

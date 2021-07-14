@@ -11,7 +11,7 @@ using namespace brup::weapons;
 using namespace brup::backgrounds;
 using namespace brup::enemies;
 
-void Main::reset(engine::Game *game) {
+void Main::init(engine::Game *game) {
     Ship *ship = new Ship;
 
     LaserMachineGun *weapon = new LaserMachineGun;

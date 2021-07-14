@@ -3,13 +3,11 @@
 using namespace brup::backgrounds;
 
 void Stars::init(engine::Game *game) {
-
     for(int i = 0 ; i < starsCount ; i++) {
         resetStar(i, game);
     }
 
-    game->getDrawPool()->push(this);
-    game->getUpdatePool()->push(this);
+    GameObject::init(game);
 }
 
 void Stars::draw(sf::RenderTarget *target) {
@@ -45,3 +43,5 @@ void Stars::resetStar(int star, engine::Game *game, bool top) {
     stars[star].brightness = rand() % 10 + 1;
     stars[star].depth = rand() % 9 + 1;
 }
+
+

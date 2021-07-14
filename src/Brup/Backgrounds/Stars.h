@@ -5,6 +5,7 @@
 #include "../../Engine/Drawable.h"
 #include "../../Engine/Initable.h"
 #include "../../Engine/Game.h"
+#include "../../Engine/GameObject.h"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <vector>
 
@@ -16,11 +17,12 @@ namespace brup::backgrounds {
         int brightness;
     };
 
-    class Stars : public engine::Updatable, public engine::Drawable, public engine::Initable {
+    class Stars : public engine::GameObject {
         public:
-            void init(engine::Game *game);
-            void draw(sf::RenderTarget *target);
-            void update(engine::Game *game);
+        void init(engine::Game *game) override;
+
+        void draw(sf::RenderTarget *target) override;
+            void update(engine::Game *game) override;
         private:
             void resetStar(int star, engine::Game *game, bool top = false);
             Star stars[200];

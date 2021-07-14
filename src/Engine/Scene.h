@@ -2,12 +2,10 @@
 #define GAME_SCENE_H
 
 #include "Updatable.h"
+#include "Initable.h"
 
 namespace engine {
-    class Game;
-    class Scene : public Updatable {
-        public:
-            virtual void reset(Game *game) = 0;
+    class Scene : public Updatable, public Initable {
     };
 }
 
