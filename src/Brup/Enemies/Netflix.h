@@ -15,6 +15,10 @@ namespace brup::enemies {
             void collisionWith(engine::Collidable *collidable, engine::Game *game) override;
         private:
             float posX, posY;
+            bool isDying = false;
+            int dyingProcess = 100;
+            sf::ConvexShape shipLeft;
+            sf::ConvexShape shipRight;
     };
 }
 

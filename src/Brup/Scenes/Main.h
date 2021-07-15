@@ -10,7 +10,7 @@ namespace brup::scenes {
             void init(engine::Game *game);
             void update(engine::Game *game) override;
         private:
-            int spawnRate = 300;
+            int spawnRate = 200;
             int lastSpawnElapsedTime = 0;
     };
 }
