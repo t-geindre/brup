@@ -19,6 +19,8 @@ void Game::init(std::string title) {
             sf::Style::Default,
             settings
             );
+
+    updatePool->push(collisionPool);
 }
 
 void Game::handleEvents() {
@@ -56,21 +58,6 @@ void Game::draw() {
     window->clear();
     drawPool->draw(getRenderTarget());
     window->display();
-}
-
-void Game::loadScene(Scene *scene) {
-    updatePool->clear();
-    drawPool->clear();
-
-    updatePool->push(scene);
-    updatePool->push(collisionPool);
-
-    this->scene = scene;
-    scene->init(this);
-}
-
-Scene *Game::getScene() {
-    return scene;
 }
 
 UpdatePool *Game::getUpdatePool() {

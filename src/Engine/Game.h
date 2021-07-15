@@ -5,7 +5,6 @@
 #include "Draw/DrawPool.h"
 #include "Update/UpdatePool.h"
 #include "Initable.h"
-#include "Scene.h"
 #include "Collision/CollisionPool.h"
 
 namespace engine {
@@ -13,8 +12,6 @@ namespace engine {
         public:
             Game();
             void init(std::string title);
-            void loadScene(Scene *scene);
-            Scene* getScene();
             sf::RenderTarget* getRenderTarget();
             UpdatePool* getUpdatePool();
             DrawPool* getDrawPool();
@@ -30,7 +27,6 @@ namespace engine {
             void updateElapsedTime();
 
         private:
-            Scene *scene;
             sf::RenderWindow *window;
             sf::Clock *clock;
             DrawPool *drawPool;

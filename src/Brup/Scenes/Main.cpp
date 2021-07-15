@@ -17,10 +17,11 @@ void Main::init(engine::Game *game) {
 
     Stars *stars = new Stars;
 
-    game->addObject(stars);
+    // game->addObject(stars);
     game->addObject(weapon);
     game->addObject(ship);
-    game->addObject(new Netflix);
+
+    engine::GameObject::init(game);
 }
 
 void Main::update(engine::Game *game) {
