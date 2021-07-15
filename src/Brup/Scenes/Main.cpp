@@ -1,7 +1,5 @@
-#include <iostream>
 #include "Main.h"
 #include "../Weapons/LaserMachineGun.h"
-#include "../../Engine/Game.h"
 #include "../Backgrounds/Stars.h"
 #include "../Enemies/Netflix.h"
 
@@ -19,17 +17,17 @@ void Main::init(engine::Game *game) {
 
     Stars *stars = new Stars;
 
- //   game->addObject(stars);
+    game->addObject(stars);
     game->addObject(weapon);
     game->addObject(ship);
+    game->addObject(new Netflix);
 }
 
 void Main::update(engine::Game *game) {
-
     if (lastSpawnElapsedTime < spawnRate) {
         lastSpawnElapsedTime += game->getElapsedTime();
         return;
     }
     lastSpawnElapsedTime = 0;
-//    game->addObject(new Netflix);
+    game->addObject(new Netflix);
 }

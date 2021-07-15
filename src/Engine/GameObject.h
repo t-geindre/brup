@@ -12,7 +12,8 @@ namespace engine {
             void init(Game *game) override;
             void draw(sf::RenderTarget *target) override;
             void update(Game *game) override;
-            void destroy(Game *game);
+
+        virtual void destroy(Game *game);
     };
 }
 

@@ -16,9 +16,11 @@ void ShortRedLaser::draw(sf::RenderTarget *target) {
     target->draw(laser);
 }
 
-void ShortRedLaser::update(engine::Game *game) {
-    Projectile::update(game);
-
-    if (yPosition < 0) {
-    }
+engine::CollisionMask ShortRedLaser::getCollisionMask() {
+    return engine::CollisionMask {
+        xPosition - 22,
+        yPosition,
+        39,
+        12
+    };
 }

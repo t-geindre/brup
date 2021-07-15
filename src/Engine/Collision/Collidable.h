@@ -1,6 +1,8 @@
 #ifndef GAME_COLLIDABLE_H
 #define GAME_COLLIDABLE_H
 
+#include "../Game.h"
+
 namespace engine {
     struct CollisionMask {
         float x;
@@ -12,7 +14,7 @@ namespace engine {
     class Collidable {
         public:
             virtual CollisionMask getCollisionMask() = 0;
-            void CollisionWith(Collidable *collidable);
+            virtual void collisionWith(Collidable *collidable, Game *game);
     };
 }
 

@@ -1,9 +1,12 @@
 #include <SFML/Graphics/ConvexShape.hpp>
+#include <iostream>
 #include "Netflix.h"
 #include "../../Engine/Game.h"
 #include "math.h"
+#include "../Weapons/Projectiles/Projectile.h"
 
 using namespace brup::enemies;
+using namespace brup::weapons::projectiles;
 
 void Netflix::draw(sf::RenderTarget *target) {
     sf::Vector2f tll(-20, -30);
@@ -39,6 +42,8 @@ void Netflix::draw(sf::RenderTarget *target) {
 void Netflix::init(engine::Game *game) {
     engine::GameObject::init(game);
 
+    game->getCollisionPool()->push(this);
+
     posX = rand() % ((int) game->getRenderTarget()->getSize().x + 200) - 100;
     posY = -30;
 }
@@ -48,6 +53,27 @@ void Netflix::update(engine::Game *game) {
     posX = posX + sin(posY/80);
 
     if (posY > game->getRenderTarget()->getView().getSize().y + 30) {
+        destroy(game);
+    }
+}
+
+void Netflix::destroy(engine::Game *game) {
+    game->getCollisionPool()->remove(this);
+    GameObject::destroy(game);
+}
+
+engine::CollisionMask Netflix::getCollisionMask() {
+    return engine::CollisionMask {
+        posX - 20,
+        posY - 30,
+        40,
+        60
+    };
+}
+
+void Netflix::collisionWith(engine::Collidable *collidable, engine::Game *game) {
+    if(auto* projectile = dynamic_cast<Projectile*>(collidable)) {
+        projectile->destroy(game);
         destroy(game);
     }
 }

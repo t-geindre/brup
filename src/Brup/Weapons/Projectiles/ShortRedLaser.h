@@ -10,8 +10,7 @@ namespace brup::weapons::projectiles {
         public:
             ShortRedLaser();
             void draw(sf::RenderTarget *target);
-
-        void update(engine::Game *game) override;
+            engine::CollisionMask getCollisionMask() override;
     };
 }
 

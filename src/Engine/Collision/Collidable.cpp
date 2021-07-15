@@ -2,6 +2,6 @@
 
 using namespace engine;
 
-void Collidable::CollisionWith(Collidable *collidable) {
+void Collidable::collisionWith(Collidable *collidable, Game *game) {
 
 }
