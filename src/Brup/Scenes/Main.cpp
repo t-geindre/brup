@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Main.h"
 #include "../Weapons/LaserMachineGun.h"
 #include "../Backgrounds/Stars.h"
@@ -17,7 +18,7 @@ void Main::init(engine::Game *game) {
 
     Stars *stars = new Stars;
 
-    // game->addObject(stars);
+    game->addObject(stars);
     game->addObject(weapon);
     game->addObject(ship);
 
@@ -25,10 +26,24 @@ void Main::init(engine::Game *game) {
 }
 
 void Main::update(engine::Game *game) {
+    if (starting > 0) {
+        starting -= .05 * game->getElapsedTime();
+        return;
+    }
+
     if (lastSpawnElapsedTime < spawnRate) {
         lastSpawnElapsedTime += game->getElapsedTime();
         return;
     }
     lastSpawnElapsedTime = 0;
     game->addObject(new Netflix);
+}
+
+void Main::draw(sf::RenderTarget *target) {
+    if (starting > 0) {
+        sf::RectangleShape fade(target->getView().getSize());
+        fade.setPosition(0,0);
+        fade.setFillColor(sf::Color(255, 255, 255, starting * 2.55));
+        target->draw(fade);
+    }
 }

@@ -16,7 +16,7 @@ namespace brup::enemies {
         private:
             float posX, posY;
             bool isDying = false;
-            int dyingProcess = 100;
+            float dyingProcess = 100;
             sf::ConvexShape shipLeft;
             sf::ConvexShape shipRight;
     };
