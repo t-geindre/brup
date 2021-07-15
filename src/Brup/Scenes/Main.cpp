@@ -19,7 +19,7 @@ void Main::init(engine::Game *game) {
 
     Stars *stars = new Stars;
 
-    game->addObject(stars);
+ //   game->addObject(stars);
     game->addObject(weapon);
     game->addObject(ship);
 }
@@ -31,5 +31,5 @@ void Main::update(engine::Game *game) {
         return;
     }
     lastSpawnElapsedTime = 0;
-    game->addObject(new Netflix);
+//    game->addObject(new Netflix);
 }

@@ -6,6 +6,7 @@
 #include "Update/UpdatePool.h"
 #include "Initable.h"
 #include "Scene.h"
+#include "Collision/CollisionPool.h"
 
 namespace engine {
     class Game {
@@ -17,6 +18,7 @@ namespace engine {
             sf::RenderTarget* getRenderTarget();
             UpdatePool* getUpdatePool();
             DrawPool* getDrawPool();
+            CollisionPool* getCollisionPool();
             int getElapsedTime();
             void addObject(Initable *initable);
 
@@ -33,6 +35,7 @@ namespace engine {
             sf::Clock *clock;
             DrawPool *drawPool;
             UpdatePool *updatePool;
+            CollisionPool *collisionPool;
             bool quit = false;
             int elapsedTime = 0;
     };

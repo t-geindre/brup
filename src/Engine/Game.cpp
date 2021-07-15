@@ -5,6 +5,7 @@ using namespace engine;
 Game::Game() {
     drawPool = new DrawPool;
     updatePool = new UpdatePool;
+    collisionPool = new CollisionPool;
     clock = new sf::Clock;
 }
 
@@ -13,9 +14,9 @@ void Game::init(std::string title) {
     settings.antialiasingLevel = 8;
 
     window = new sf::RenderWindow(
-            sf::VideoMode(1920, 1080),
+            sf::VideoMode(1024, 768),
             title,
-            sf::Style::Fullscreen,
+            sf::Style::Default,
             settings
             );
 }
@@ -62,6 +63,7 @@ void Game::loadScene(Scene *scene) {
     drawPool->clear();
 
     updatePool->push(scene);
+    updatePool->push(collisionPool);
 
     this->scene = scene;
     scene->init(this);
@@ -93,4 +95,8 @@ void Game::updateElapsedTime() {
 
 void Game::addObject(Initable *initable) {
     initable->init(this);
+}
+
+CollisionPool *Game::getCollisionPool() {
+    return collisionPool;
 }
