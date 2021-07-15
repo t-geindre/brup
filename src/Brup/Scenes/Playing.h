@@ -1,11 +1,11 @@
-#ifndef GAME_MAIN_H
-#define GAME_MAIN_H
+#ifndef GAME_PLAYING_H
+#define GAME_PLAYING_H
 
 #include "../../Engine/GameObject.h"
 #include "../Player/Ship.h"
 
 namespace brup::scenes {
-    class Main : public engine::GameObject {
+    class Playing : public engine::GameObject {
         public:
             void init(engine::Game *game) override;
             void update(engine::Game *game) override;
@@ -14,8 +14,8 @@ namespace brup::scenes {
         private:
             int spawnRate = 100;
             int lastSpawnElapsedTime = 0;
-            float starting = 100;
+            float starting = 50;
     };
 }
 
-#endif //GAME_MAIN_H
+#endif //GAME_PLAYING_H

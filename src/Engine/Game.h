@@ -21,7 +21,8 @@ namespace engine {
 
         protected:
             void handleEvents();
-            void update();
+
+        virtual void update();
             void draw();
             void run();
             void updateElapsedTime();

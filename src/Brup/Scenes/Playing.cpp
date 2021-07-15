@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Main.h"
+#include "Playing.h"
 #include "../Weapons/LaserMachineGun.h"
 #include "../Backgrounds/Stars.h"
 #include "../Enemies/Netflix.h"
@@ -10,7 +10,7 @@ using namespace brup::weapons;
 using namespace brup::backgrounds;
 using namespace brup::enemies;
 
-void Main::init(engine::Game *game) {
+void Playing::init(engine::Game *game) {
     Ship *ship = new Ship;
 
     LaserMachineGun *weapon = new LaserMachineGun;
@@ -25,7 +25,7 @@ void Main::init(engine::Game *game) {
     engine::GameObject::init(game);
 }
 
-void Main::update(engine::Game *game) {
+void Playing::update(engine::Game *game) {
     if (starting > 0) {
         starting -= .05 * game->getElapsedTime();
         return;
@@ -39,7 +39,7 @@ void Main::update(engine::Game *game) {
     game->addObject(new Netflix);
 }
 
-void Main::draw(sf::RenderTarget *target) {
+void Playing::draw(sf::RenderTarget *target) {
     if (starting > 0) {
         sf::RectangleShape fade(target->getView().getSize());
         fade.setPosition(0,0);

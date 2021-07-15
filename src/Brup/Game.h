@@ -2,11 +2,15 @@
 #define GAME_BRUP_H
 
 #include "../Engine/Game.h"
+#include "../Engine/GameObject.h"
 
 namespace brup {
     class Game : public engine::Game{
         public:
             Game();
+
+        protected:
+            engine::GameObject *scene;
     };
 }
 
