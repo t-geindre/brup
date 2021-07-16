@@ -15,12 +15,9 @@ namespace brup::enemies {
             void collisionWith(engine::Collidable *collidable, engine::Game *game) override;
         private:
             float posX, posY;
-            bool isDying = false;
-            float dyingProcess = 100;
-            sf::ConvexShape shipLeft;
-            sf::ConvexShape shipRight;
+            sf::ConvexShape ship;
+            sf::Color shipColor;
     };
 }
-
 
 #endif //GAME_NETFLIX_H

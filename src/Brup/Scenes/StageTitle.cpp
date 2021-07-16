@@ -2,6 +2,8 @@
 #include "StageTitle.h"
 #include "Playing.h"
 
+#include "../Effects/ParticleExplosion.h"
+
 using namespace brup::scenes;
 
 void StageTitle::draw(sf::RenderTarget *target) {

@@ -1,26 +1,23 @@
-#include <SFML/Graphics/ConvexShape.hpp>
 #include "Netflix.h"
 #include "math.h"
 #include "../Weapons/Projectiles/Projectile.h"
+#include "../Effects/ParticleExplosion.h"
 
 using namespace brup::enemies;
 using namespace brup::weapons::projectiles;
+using namespace brup::effects;
 
 void Netflix::draw(sf::RenderTarget *target) {
-    sf::Color shipColor(229, 9, 20, !isDying ? 255 : (int) (dyingProcess * 2.55));
-
-    shipLeft.setPosition(posX - (isDying ? 30 - dyingProcess * 0.3 : 0 ), posY);
-    shipLeft.setFillColor(shipColor);
-    target->draw(shipLeft);
-
-    shipRight.setPosition(posX + (isDying ? 30 - dyingProcess * 0.3 : 0 ), posY);
-    shipRight.setFillColor(shipColor);
-    target->draw(shipRight);
+    target->draw(ship);
 }
 
 void Netflix::init(engine::Game *game) {
     posX = rand() % ((int) game->getRenderTarget()->getSize().x + 200) - 100;
     posY = -30;
+
+    shipColor.r = rand() % 256; //229;
+    shipColor.g = rand() % 256; //9;
+    shipColor.b = rand() % 256; //20;
 
     sf::Vector2f tll(-20, -30);
     sf::Vector2f tlr(-8, -30);
@@ -33,41 +30,32 @@ void Netflix::init(engine::Game *game) {
     sf::Vector2f blr(-8, 30);
     sf::Vector2f bll(-20, 30);
 
-    shipLeft.setPointCount(7);
-    shipLeft.setPoint(0, tll);
-    shipLeft.setPoint(1, tlr);
-    shipLeft.setPoint(2, tc);
-    shipLeft.setPoint(3, bc);
-    shipLeft.setPoint(4, blr);
-    shipLeft.setPoint(5, bll);
-    shipLeft.setPoint(6, tll);
+    ship.setPointCount(10);
+    ship.setPoint(0, tll);
+    ship.setPoint(1, tlr);
+    ship.setPoint(2, tc);
+    ship.setPoint(3, trl);
+    ship.setPoint(4, trr);
+    ship.setPoint(5, brr);
+    ship.setPoint(6, brl);
+    ship.setPoint(7, bc);
+    ship.setPoint(8, blr);
+    ship.setPoint(9, bll);
 
-    shipRight.setPointCount(7);
-    shipRight.setPoint(0, trr);
-    shipRight.setPoint(1, trl);
-    shipRight.setPoint(2, tc);
-    shipRight.setPoint(3, bc);
-    shipRight.setPoint(4, brl);
-    shipRight.setPoint(5, brr);
-    shipRight.setPoint(6, trr);
+    ship.setFillColor(shipColor);
+
+    game->getCollisionPool()->push(this);
 
     engine::GameObject::init(game);
-    game->getCollisionPool()->push(this);
 }
 
 void Netflix::update(engine::Game *game) {
     posY += .2 * game->getElapsedTime();
     posX = posX + sin(posY/80);
 
+    ship.setPosition(posX, posY);
+
     if (posY > game->getRenderTarget()->getView().getSize().y + 30) {
-        destroy(game);
-    }
-
-    if (isDying) {
-        dyingProcess -= .8 * game->getElapsedTime();
-    }
-
-    if (dyingProcess <= 0) {
         destroy(game);
     }
 }
@@ -87,12 +75,16 @@ engine::CollisionMask Netflix::getCollisionMask() {
 }
 
 void Netflix::collisionWith(engine::Collidable *collidable, engine::Game *game) {
-    if (isDying) {
-        return;
-    }
-
     if(auto* projectile = dynamic_cast<Projectile*>(collidable)) {
+        auto* explosion = new ParticleExplosion;
+        explosion->setPosition(posX, posY);
+        explosion->pushParticlesColor(shipColor);
+        explosion->setParticlesSize(3, 6);
+        explosion->setParticlesCount(50);
+        explosion->setParticlesVelocity(.005, .5);
+        game->addObject(explosion);
+
+        destroy(game);
         projectile->destroy(game);
-        isDying = true;
     }
 }
