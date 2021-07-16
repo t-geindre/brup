@@ -15,6 +15,7 @@ namespace engine {
             void remove(Collidable *collidable);
             void clear();
             void draw(sf::RenderTarget *target) override;
+            unsigned int getDrawPriority() override;
         private:
             std::vector<Collidable*>* pool;
     };

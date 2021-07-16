@@ -10,11 +10,11 @@ namespace brup::scenes {
             void init(engine::Game *game) override;
             void update(engine::Game *game) override;
             void draw(sf::RenderTarget *target) override;
-
+            unsigned int getDrawPriority() override;
         private:
             int spawnRate = 100;
             int lastSpawnElapsedTime = 0;
-            float starting = 50;
+            float starting = 100;
     };
 }
 

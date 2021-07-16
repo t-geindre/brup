@@ -11,6 +11,7 @@ namespace engine {
             void push(Drawable *drawable);
             void remove(Drawable *drawable);
             void draw(sf::RenderTarget *target);
+            unsigned int getDrawPriority() override;
             void clear();
         private:
             std::vector<Drawable*>* pool;

@@ -11,9 +11,9 @@ namespace engine {
         public:
             void init(Game *game) override;
             void draw(sf::RenderTarget *target) override;
+            unsigned int getDrawPriority() override;
             void update(Game *game) override;
-
-        virtual void destroy(Game *game);
+            virtual void destroy(Game *game);
     };
 }
 

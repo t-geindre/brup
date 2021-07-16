@@ -56,3 +56,7 @@ void CollisionPool::draw(sf::RenderTarget *target) {
         target->draw(rect);
     }
 }
+
+unsigned int CollisionPool::getDrawPriority() {
+    return 0;
+}

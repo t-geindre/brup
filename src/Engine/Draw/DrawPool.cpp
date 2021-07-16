@@ -15,6 +15,9 @@ void DrawPool::draw(sf::RenderTarget *target) {
 
 void DrawPool::push(Drawable *drawable) {
     pool->push_back(drawable);
+    std::sort(pool->begin(), pool->end(), [](Drawable *a, Drawable *b) {
+        return a->getDrawPriority() < b->getDrawPriority();
+    });
 }
 
 void DrawPool::remove(Drawable *drawable) {
@@ -28,5 +31,9 @@ void DrawPool::remove(Drawable *drawable) {
 
 void DrawPool::clear() {
     pool->clear();
+}
+
+unsigned int DrawPool::getDrawPriority() {
+    return 0;
 }
 

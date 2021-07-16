@@ -26,7 +26,7 @@ void Playing::init(engine::Game *game) {
 
 void Playing::update(engine::Game *game) {
     if (starting > 0) {
-        starting -= .03 * game->getElapsedTime();
+        starting -= .08f * game->getElapsedTime();
         return;
     }
 
@@ -45,4 +45,8 @@ void Playing::draw(sf::RenderTarget *target) {
         fade.setFillColor(sf::Color(0, 0, 0, starting * 2.55));
         target->draw(fade);
     }
+}
+
+unsigned int Playing::getDrawPriority() {
+    return 1000;
 }

@@ -7,6 +7,7 @@ namespace engine {
     class Drawable {
         public:
             virtual void draw(sf::RenderTarget *target) = 0;
+            virtual unsigned int getDrawPriority() = 0;
     };
 }
 

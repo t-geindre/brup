@@ -20,3 +20,7 @@ void GameObject::destroy(Game *game) {
     game->getUpdatePool()->remove(this);
     delete this;
 }
+
+unsigned int GameObject::getDrawPriority() {
+    return 0;
+}
