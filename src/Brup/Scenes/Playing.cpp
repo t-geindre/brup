@@ -42,7 +42,7 @@ void Playing::draw(sf::RenderTarget *target) {
     if (starting > 0) {
         sf::RectangleShape fade(target->getView().getSize());
         fade.setPosition(0,0);
-        fade.setFillColor(sf::Color(0, 0, 0, starting * 2.55));
+        fade.setFillColor(sf::Color(255, 255, 255, starting * 2.55));
         target->draw(fade);
     }
 }

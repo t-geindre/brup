@@ -12,7 +12,7 @@ namespace brup::scenes {
             void draw(sf::RenderTarget *target) override;
             unsigned int getDrawPriority() override;
         private:
-            int spawnRate = 100;
+            int spawnRate = 200;
             int lastSpawnElapsedTime = 0;
             float starting = 100;
     };

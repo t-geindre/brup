@@ -13,7 +13,7 @@ class Weapon : public engine::GameObject {
         protected:
             virtual brup::weapons::projectiles::Projectile* getNewProjectile() = 0;
             // fire rate, one shoot each X ms
-            int fireRate = 100;
+            int fireRate = 50;
             bool isFiring = false;
             int lastShootElapsedTime = 0;
             float posX, posY;

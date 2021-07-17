@@ -14,7 +14,7 @@ namespace brup::scenes {
             sf::Font font;
             sf::Text title;
             sf::RectangleShape background;
-            float displayTime = 2100; // ms
+            float displayTime = 2500; // ms
             float titleDisplayTime = 2000;
             float titleFade = 100;
     };

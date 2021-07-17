@@ -12,12 +12,13 @@ void Netflix::draw(sf::RenderTarget *target) {
 }
 
 void Netflix::init(engine::Game *game) {
-    posX = rand() % ((int) game->getRenderTarget()->getSize().x + 200) - 100;
+    posX = rand() % ((int) game->getRenderTarget()->getSize().x - 200) + 100;
     posY = -30;
 
-    shipColor.r = rand() % 256; //229;
-    shipColor.g = rand() % 256; //9;
-    shipColor.b = rand() % 256; //20;
+    int l = rand() % 3;
+    shipColor.r = l == 0 ? 255 : 0; 229;
+    shipColor.g = l == 1 ? 255 : 0; //9;
+    shipColor.b = l == 2 ? 255 : 0; //20;
 
     sf::Vector2f tll(-20, -30);
     sf::Vector2f tlr(-8, -30);
@@ -51,18 +52,13 @@ void Netflix::init(engine::Game *game) {
 
 void Netflix::update(engine::Game *game) {
     posY += .2 * game->getElapsedTime();
-    posX = posX + sin(posY/80);
+    posX += sin(posY/80) * 0.2 * game->getElapsedTime();
 
     ship.setPosition(posX, posY);
 
     if (posY > game->getRenderTarget()->getView().getSize().y + 30) {
         destroy(game);
     }
-}
-
-void Netflix::destroy(engine::Game *game) {
-    game->getCollisionPool()->remove(this);
-    GameObject::destroy(game);
 }
 
 engine::CollisionMask Netflix::getCollisionMask() {
@@ -74,17 +70,13 @@ engine::CollisionMask Netflix::getCollisionMask() {
     };
 }
 
-void Netflix::collisionWith(engine::Collidable *collidable, engine::Game *game) {
-    if(auto* projectile = dynamic_cast<Projectile*>(collidable)) {
+void Netflix::animateDestruction(engine::Game *game) {
         auto* explosion = new ParticleExplosion;
         explosion->setPosition(posX, posY);
         explosion->pushParticlesColor(shipColor);
-        explosion->setParticlesSize(3, 6);
-        explosion->setParticlesCount(50);
-        explosion->setParticlesVelocity(.005, .5);
+        explosion->setParticlesSize(2, 4);
+        explosion->setParticlesVelocity(.05, .5);
+        explosion->setParticlesCount(100);
+        explosion->setParticlesFadeSpeed(.05, .08);
         game->addObject(explosion);
-
-        destroy(game);
-        projectile->destroy(game);
-    }
 }

@@ -10,8 +10,8 @@ void ParticleExplosion::setParticlesSize(float min, float max) {
 }
 
 void ParticleExplosion::setParticlesVelocity(float min, float max) {
-    minVelocity = minVelocity;
-    maxVelocity = maxVelocity;
+    minVelocity = min;
+    maxVelocity = max;
 }
 
 void ParticleExplosion::setParticlesFadeSpeed(float min, float max) {
@@ -63,8 +63,31 @@ void ParticleExplosion::init(engine::Game *game) {
 void ParticleExplosion::update(engine::Game *game) {
     for (int i = 0; i < particles.size(); i++) {
         auto* particle = particles[i];
+
         particle->posX += particle->xVelocity * game->getElapsedTime();
+
+        if (particle->posX > game->getRenderTarget()->getSize().x ) {
+            particle->posX = game->getRenderTarget()->getSize().x;
+            particle->xVelocity = -particle->xVelocity;
+        }
+
+        if (particle->posX < 0) {
+            particle->posX = 0;
+            particle->xVelocity = -particle->xVelocity;
+        }
+
         particle->posY += particle->yVelocity * game->getElapsedTime();
+
+        if (particle->posY > game->getRenderTarget()->getSize().y ) {
+            particle->posY = game->getRenderTarget()->getSize().y;
+            particle->yVelocity = -particle->yVelocity;
+        }
+
+        if (particle->posY < 0) {
+            particle->posY = 0;
+            particle->yVelocity = -particle->yVelocity;
+        }
+
         particle->fade -= particle->fadeSpeed * game->getElapsedTime();
         particle->color.a = particle->fade * 2.55;
         if (particle->fade < 0) {

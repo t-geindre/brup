@@ -21,7 +21,7 @@ void StageTitle::draw(sf::RenderTarget *target) {
 
 void StageTitle::init(engine::Game *game) {
     background.setPosition(0, 0);
-    background.setFillColor(sf::Color(0, 0, 0));
+    background.setFillColor(sf::Color(255, 255, 255));
 
     font.loadFromFile("../assets/fonts/bitwise.ttf");
 
@@ -46,7 +46,7 @@ void StageTitle::update(engine::Game *game) {
 
     titleDisplayTime -= game->getElapsedTime();
     if (titleDisplayTime <= 0) {
-        titleFade -= 0.5 * game->getElapsedTime();
+        titleFade -= 0.3 * game->getElapsedTime();
     }
 
     displayTime -= game->getElapsedTime();
