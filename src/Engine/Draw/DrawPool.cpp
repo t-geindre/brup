@@ -20,13 +20,15 @@ void DrawPool::push(Drawable *drawable) {
     });
 }
 
-void DrawPool::remove(Drawable *drawable) {
+bool DrawPool::remove(Drawable *drawable) {
     for (int i = 0; i < pool->size(); i++) {
         if ((*pool)[i] == drawable) {
             pool->erase(pool->begin()+i);
-            return;
+            return true;
         }
     }
+
+    return false;
 }
 
 void DrawPool::clear() {
@@ -35,5 +37,11 @@ void DrawPool::clear() {
 
 unsigned int DrawPool::getDrawPriority() {
     return 0;
+}
+
+void DrawPool::toggle(Drawable *drawable) {
+    if (!this->remove(drawable)) {
+        this->push(drawable);
+    }
 }
 

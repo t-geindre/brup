@@ -4,9 +4,9 @@
 #include "Update/Updatable.h"
 #include "Draw/Drawable.h"
 #include "Initable.h"
-#include "Game.h"
 
 namespace engine {
+    class Game;
     class GameObject: public Updatable, public Drawable, public Initable {
         public:
             void init(Game *game) override;

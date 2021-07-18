@@ -43,20 +43,6 @@ void CollisionPool::clear() {
     pool->clear();
 }
 
-void CollisionPool::draw(sf::RenderTarget *target) {
-    sf::RectangleShape rect;
-    rect.setFillColor(sf::Color(0, 0, 255, 100));
-    rect.setOutlineThickness(1);
-    rect.setOutlineColor(sf::Color(200, 0, 255));
-
-    for (int i = 0; i < pool->size(); i++) {
-        CollisionMask mask = (*pool)[i]->getCollisionMask();
-        rect.setPosition(mask.x, mask.y);
-        rect.setSize(sf::Vector2f(mask.width, mask.height));
-        target->draw(rect);
-    }
-}
-
-unsigned int CollisionPool::getDrawPriority() {
-    return 0;
+std::vector<Collidable*>* CollisionPool::getVector() {
+    return pool;
 }

@@ -71,12 +71,12 @@ engine::CollisionMask Netflix::getCollisionMask() {
 }
 
 void Netflix::animateDestruction(engine::Game *game) {
-        auto* explosion = new ParticleExplosion;
-        explosion->setPosition(posX, posY);
-        explosion->pushParticlesColor(shipColor);
-        explosion->setParticlesSize(2, 4);
-        explosion->setParticlesVelocity(.05, .5);
-        explosion->setParticlesCount(100);
-        explosion->setParticlesFadeSpeed(.05, .08);
-        game->addObject(explosion);
+    auto* explosion = new ParticleExplosion;
+    explosion->setPosition(posX, posY);
+    explosion->pushParticlesColor(shipColor);
+    explosion->setParticlesSize(2, 4);
+    explosion->setParticlesVelocity(.05, .5);
+    explosion->setParticlesCount(200);
+    explosion->setParticlesFadeSpeed(.05, .08);
+    game->addObject(explosion);
 }

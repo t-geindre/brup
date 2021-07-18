@@ -1,6 +1,9 @@
 #ifndef GAME_STAGETITLE_H
 #define GAME_STAGETITLE_H
 
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include "../../Engine/GameObject.h"
 
 namespace brup::scenes {

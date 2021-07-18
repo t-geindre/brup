@@ -6,6 +6,7 @@
 #include "Update/UpdatePool.h"
 #include "Initable.h"
 #include "Collision/CollisionPool.h"
+#include "GameObject.h"
 
 namespace engine {
     class Game {
@@ -18,11 +19,11 @@ namespace engine {
             CollisionPool* getCollisionPool();
             int getElapsedTime();
             void addObject(Initable *initable);
+            void enableDebug();
 
         protected:
             void handleEvents();
-
-        virtual void update();
+            virtual void update();
             void draw();
             void run();
             void updateElapsedTime();
@@ -35,6 +36,8 @@ namespace engine {
             CollisionPool *collisionPool;
             bool quit = false;
             int elapsedTime = 0;
+            bool debugEnabled = false;
+            GameObject *debugObjects[2];
     };
 }
 

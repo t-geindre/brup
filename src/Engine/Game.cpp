@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Debug/CollisionMasks.h"
+#include "Debug/FramePerSecond.h"
 
 using namespace engine;
 
@@ -20,6 +22,8 @@ void Game::init(std::string title) {
             settings
             );
 
+    window->setFramerateLimit(60);
+
     updatePool->push(collisionPool);
 }
 
@@ -31,10 +35,18 @@ void Game::handleEvents() {
             quit = true;
         }
         if (event.type == sf::Event::KeyPressed) {
-            switch (event.key.code) {
-                case sf::Keyboard::Escape:
-                    quit = true;
-                    break;
+            if (event.key.code == sf::Keyboard::Escape) {
+                quit = true;
+            }
+            if (debugEnabled) {
+                switch (event.key.code) {
+                    case sf::Keyboard::F1:
+                        drawPool->toggle(debugObjects[0]);
+                        break;
+                    case sf::Keyboard::F2:
+                        drawPool->toggle(debugObjects[1]);
+                        break;
+                }
             }
         }
     }
@@ -86,4 +98,14 @@ void Game::addObject(Initable *initable) {
 
 CollisionPool *Game::getCollisionPool() {
     return collisionPool;
+}
+
+void Game::enableDebug() {
+    debugEnabled = true;
+
+    this->debugObjects[0] = new CollisionMasks;
+    this->addObject(this->debugObjects[0]);
+
+    this->debugObjects[1] = new FramePerSecond;
+    this->addObject(this->debugObjects[1]);
 }

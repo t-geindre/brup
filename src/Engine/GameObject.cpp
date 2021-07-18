@@ -1,5 +1,5 @@
 #include "GameObject.h"
-
+#include "Game.h"
 using namespace engine;
 
 void GameObject::draw(sf::RenderTarget *target) {

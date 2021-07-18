@@ -4,6 +4,7 @@
 #include <vector>
 #include <SFML/Graphics/Color.hpp>
 #include "../../Engine/GameObject.h"
+#include "../../Engine/Game.h"
 
 namespace brup::effects {
 

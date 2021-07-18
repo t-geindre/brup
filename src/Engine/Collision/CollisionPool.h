@@ -3,19 +3,17 @@
 
 #include <vector>
 #include "../Update/Updatable.h"
-#include "../Draw/Drawable.h"
 
 namespace engine {
     class Collidable;
-    class CollisionPool : public Updatable, public Drawable {
+    class CollisionPool : public Updatable {
         public:
             CollisionPool();
             void update(Game *game) override;
             void push(Collidable *collidable);
             void remove(Collidable *collidable);
             void clear();
-            void draw(sf::RenderTarget *target) override;
-            unsigned int getDrawPriority() override;
+            std::vector<Collidable*>* getVector();
         private:
             std::vector<Collidable*>* pool;
     };

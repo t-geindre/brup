@@ -9,7 +9,8 @@ namespace engine {
         public:
             DrawPool();
             void push(Drawable *drawable);
-            void remove(Drawable *drawable);
+            bool remove(Drawable *drawable);
+            void toggle(Drawable *drawable);
             void draw(sf::RenderTarget *target);
             unsigned int getDrawPriority() override;
             void clear();
