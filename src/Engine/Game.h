@@ -7,6 +7,7 @@
 #include "Initable.h"
 #include "Collision/CollisionPool.h"
 #include "GameObject.h"
+#include "Event/EventDispatcher.h"
 
 namespace engine {
     class Game {
@@ -20,6 +21,7 @@ namespace engine {
             int getElapsedTime();
             void addObject(Initable *initable);
             void enableDebug();
+            EventDispatcher* getEventDispatcher();
 
         protected:
             void handleEvents();
@@ -38,6 +40,7 @@ namespace engine {
             int elapsedTime = 0;
             bool debugEnabled = false;
             GameObject *debugObjects[2];
+            EventDispatcher *eventDispatcher;
     };
 }
 

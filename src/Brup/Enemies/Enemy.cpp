@@ -22,6 +22,7 @@ void Enemy::destroy(engine::Game *game) {
 }
 
 void Enemy::kill(engine::Game *game) {
+    game->getEventDispatcher()->dispatch(new engine::Event);
     animateDestruction(game);
     destroy(game);
 }

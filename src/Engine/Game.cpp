@@ -9,6 +9,7 @@ Game::Game() {
     updatePool = new UpdatePool;
     collisionPool = new CollisionPool;
     clock = new sf::Clock;
+    eventDispatcher = new EventDispatcher;
 }
 
 void Game::init(std::string title) {
@@ -108,4 +109,8 @@ void Game::enableDebug() {
 
     this->debugObjects[1] = new FramePerSecond;
     this->addObject(this->debugObjects[1]);
+}
+
+EventDispatcher *Game::getEventDispatcher() {
+    return eventDispatcher;
 }
