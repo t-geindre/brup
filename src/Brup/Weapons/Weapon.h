@@ -8,7 +8,6 @@ namespace brup::weapons {
 class Weapon : public engine::GameObject {
         public:
             void setIsFiring(bool isFiring);
-            void setPosition(float x, float y);
             void update(engine::Game *game) override;
         protected:
             virtual brup::weapons::projectiles::Projectile* getNewProjectile() = 0;
@@ -16,7 +15,6 @@ class Weapon : public engine::GameObject {
             int fireRate = 50;
             bool isFiring = false;
             int lastShootElapsedTime = 0;
-            float posX, posY;
     };
 }
 

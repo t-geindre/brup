@@ -19,14 +19,8 @@ void Weapon::update(engine::Game *game) {
     }
 
     Projectile *projectile = getNewProjectile();
-    projectile->setPosition(posX, posY);
+    projectile->setPosition(position);
     game->addObject(projectile);
 
     lastShootElapsedTime = 0;
-}
-
-void Weapon::setPosition(float x, float y) {
-
-    posX = x;
-    posY = y;
 }

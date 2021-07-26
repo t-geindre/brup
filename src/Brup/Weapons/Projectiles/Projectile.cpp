@@ -4,17 +4,12 @@
 using namespace brup::weapons::projectiles;
 
 void Projectile::update(engine::Game *game) {
-    xPosition += xVelocity * game->getElapsedTime();
-    yPosition += yVelocity * game->getElapsedTime();
+    position.x += xVelocity * game->getElapsedTime();
+    position.y += yVelocity * game->getElapsedTime();
 
-    if (yPosition < 0 || yPosition > game->getRenderTarget()->getView().getSize().y) {
+    if (position.y < 0 || position.y > game->getRenderTarget()->getView().getSize().y) {
         destroy(game);
     }
-}
-
-void Projectile::setPosition(float x, float y) {
-    xPosition = x;
-    yPosition = y;
 }
 
 void Projectile::init(engine::Game *game) {

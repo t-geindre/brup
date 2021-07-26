@@ -19,11 +19,6 @@ void ParticleExplosion::setParticlesFadeSpeed(float min, float max) {
     maxFadeSpeed = max;
 }
 
-void ParticleExplosion::setPosition(float x, float y) {
-    posX = x;
-    posY = y;
-}
-
 void ParticleExplosion::setParticlesCount(int count) {
     particlesCount = count;
 }
@@ -44,8 +39,8 @@ void ParticleExplosion::init(engine::Game *game) {
         float direction = (float) (2 * M_PI * rand())/RAND_MAX;
 
         auto* particule = new Particle {
-            posX,
-            posY,
+            position.x,
+            position.y,
             colors[rand() % colors.size()],
             velocity * (float) cos(direction),
             velocity * (float) sin(direction),

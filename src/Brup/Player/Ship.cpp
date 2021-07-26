@@ -18,8 +18,8 @@ void Ship::draw(sf::RenderTarget *target) {
 }
 
 void Ship::setMovements(int x, int y) {
-    xMove = x;
-    yMove = y;
+    move.x = x;
+    move.y = y;
 }
 
 void Ship::update(engine::Game *game) {
@@ -41,22 +41,22 @@ void Ship::update(engine::Game *game) {
             sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ? -1 : (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ? 1 : 0)
             );
 
-    posX += .8 * xMove * game->getElapsedTime();
-    posY += .8 * yMove * game->getElapsedTime();
+    position.x += .8 * move.x * game->getElapsedTime();
+    position.y += .8 * move.y * game->getElapsedTime();
 
     float posYMax = game->getRenderTarget()->getView().getSize().y;
     float poxXMax = game->getRenderTarget()->getView().getSize().x;
 
-    posY = posY < 0 ? 0 : ( posY > posYMax ? posYMax : posY);
-    posX = posX < 0 ? 0 : ( posX > poxXMax ? poxXMax : posX);
+    position.y = position.y < 0 ? 0 : ( position.y > posYMax ? posYMax : position.y);
+    position.x = position.x < 0 ? 0 : ( position.x > poxXMax ? poxXMax : position.x);
 
-    ship.setPosition(posX, posY);
+    ship.setPosition(position);
 
     if (weapon == NULL) {
         return;
     }
 
-    weapon->setPosition(posX, posY);
+    weapon->setPosition(position);
     weapon->setIsFiring(sf::Keyboard::isKeyPressed(sf::Keyboard::Space));
 }
 
@@ -89,8 +89,7 @@ void Ship::init(engine::Game *game) {
 
     resetPosition(game);
 
-    xMove = 0;
-    yMove = 0;
+    setMovements(0, 0);
 
     game->getCollisionPool()->push(this);
 
@@ -99,8 +98,8 @@ void Ship::init(engine::Game *game) {
 
 engine::CollisionMask Ship::getCollisionMask() {
     return engine::CollisionMask {
-        posX - 22,
-        posY - 35,
+        position.x - 22,
+        position.y - 35,
         44,
         55
     };
@@ -128,7 +127,7 @@ void Ship::destroy(engine::Game *game) {
 
 void Ship::animateDestruction(engine::Game *game) {
     auto* explosion = new ParticleExplosion;
-    explosion->setPosition(posX, posY);
+    explosion->setPosition(position);
     explosion->pushParticlesColor(shipColor);
     explosion->setParticlesSize(2, 4);
     explosion->setParticlesVelocity(.05, .5);
@@ -138,6 +137,8 @@ void Ship::animateDestruction(engine::Game *game) {
 }
 
 void Ship::resetPosition(engine::Game *game) {
-    posX = game->getRenderTarget()->getView().getCenter().x;
-    posY = game->getRenderTarget()->getView().getSize().y - 40.f;
+    setPosition(
+        game->getRenderTarget()->getView().getCenter().x,
+        game->getRenderTarget()->getView().getSize().y - 40.f
+    );
 }

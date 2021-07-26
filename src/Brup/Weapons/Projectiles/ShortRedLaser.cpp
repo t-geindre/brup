@@ -10,16 +10,16 @@ ShortRedLaser::ShortRedLaser() {
 void ShortRedLaser::draw(sf::RenderTarget *target) {
     sf::RectangleShape laser(sf::Vector2f(4, 12));
     laser.setFillColor(sf::Color(50, 255, 50));
-    laser.setPosition(xPosition - 22, yPosition);
+    laser.setPosition(position.x - 22, position.y);
     target->draw(laser);
-    laser.setPosition(xPosition + 17 , yPosition);
+    laser.setPosition(position.x + 17 , position.y);
     target->draw(laser);
 }
 
 engine::CollisionMask ShortRedLaser::getCollisionMask() {
     return engine::CollisionMask {
-        xPosition - 22,
-        yPosition,
+        position.x - 22,
+        position.y,
         39,
         12
     };

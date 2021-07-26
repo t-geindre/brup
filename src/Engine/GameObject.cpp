@@ -24,3 +24,29 @@ void GameObject::destroy(Game *game) {
 unsigned int GameObject::getDrawPriority() {
     return 0;
 }
+
+sf::Vector2f GameObject::getPosition() {
+    return position;
+}
+
+sf::Vector2f GameObject::getSize() {
+    return size;
+}
+
+void GameObject::setPosition(sf::Vector2f position) {
+    this->position = position;
+}
+
+void GameObject::setPosition(float x, float y) {
+    position.x = x;
+    position.y = y;
+}
+
+void GameObject::setSize(sf::Vector2f size) {
+    this->size = size;
+}
+
+void GameObject::setSize(float x, float y) {
+    size.x = x;
+    size.y = y;
+}

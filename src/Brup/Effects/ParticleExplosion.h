@@ -26,7 +26,6 @@ namespace brup::effects {
             void setParticlesFadeSpeed(float min, float max);
             void setParticlesCount(int count);
             void pushParticlesColor(sf::Color color);
-            void setPosition(float x, float y);
             void init(engine::Game *game) override;
             void update(engine::Game *game) override;
             void draw(sf::RenderTarget *target) override;
@@ -37,8 +36,6 @@ namespace brup::effects {
             float maxSize = 1;
             float minFadeSpeed = .05;
             float maxFadeSpeed = .08;
-            float posX = 0;
-            float posY = 0;
             int particlesCount = 100;
             std::vector<sf::Color> colors;
             std::vector<Particle*> particles;

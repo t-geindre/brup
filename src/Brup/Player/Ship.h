@@ -20,8 +20,7 @@ namespace brup::player {
             void animateDestruction(engine::Game *game);
             void resetPosition(engine::Game *game);
         private:
-            float posX, posY;
-            int xMove, yMove;
+            sf::Vector2f move;
             bool dead = false;
             int deathRecovery, invincible;
             brup::weapons::Weapon *weapon;
