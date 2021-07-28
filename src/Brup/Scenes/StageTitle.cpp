@@ -1,8 +1,7 @@
-#include <iostream>
 #include "StageTitle.h"
 #include "Playing.h"
 
-#include "../Effects/ParticleExplosion.h"
+#include "../Events/SceneEnds.h"
 
 using namespace brup::scenes;
 
@@ -51,7 +50,7 @@ void StageTitle::update(engine::Game *game) {
 
     displayTime -= game->getElapsedTime();
     if (displayTime <= 0) {
-        game->addObject(new brup::scenes::Playing);
+        game->getEventDispatcher()->dispatch(new brup::events::SceneEnds);
         destroy(game);
     }
 }

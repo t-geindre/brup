@@ -114,3 +114,7 @@ void Game::enableDebug() {
 EventDispatcher *Game::getEventDispatcher() {
     return eventDispatcher;
 }
+
+void Game::destroy(GameObject *gameObject) {
+
+}

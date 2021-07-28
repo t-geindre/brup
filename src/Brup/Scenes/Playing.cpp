@@ -1,13 +1,17 @@
+#include <iostream>
 #include "Playing.h"
 #include "../Weapons/LaserMachineGun.h"
 #include "../Backgrounds/Stars.h"
 #include "../Enemies/Netflix.h"
+#include "../Events/PlayerKilled.h"
+#include "../Events/EnemyKilled.h"
 
 using namespace brup::scenes;
 using namespace brup::player;
 using namespace brup::weapons;
 using namespace brup::backgrounds;
 using namespace brup::enemies;
+using namespace brup::events;
 
 void Playing::init(engine::Game *game) {
     Ship *ship = new Ship;
@@ -20,6 +24,13 @@ void Playing::init(engine::Game *game) {
     game->addObject(stars);
     game->addObject(weapon);
     game->addObject(ship);
+
+    game->getEventDispatcher()->addListener(EnemyKilled::NAME, [&](engine::Event *event) {
+        std::cout << "Enemy killed" << std::endl;
+    });
+    game->getEventDispatcher()->addListener(PlayerKilled::NAME, [&](engine::Event *event) {
+        std::cout << "Player killed" << std::endl;
+    });
 
     engine::GameObject::init(game);
 }

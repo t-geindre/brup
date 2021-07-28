@@ -8,9 +8,15 @@ namespace brup {
     class Game : public engine::Game{
         public:
             Game();
-
+            void nextState();
         protected:
+            enum STATES:int {
+                NONE,
+                STAGE_TITLE,
+                PLAYING
+            };
             engine::GameObject *scene;
+            int state;
     };
 }
 

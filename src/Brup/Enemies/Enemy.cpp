@@ -1,8 +1,10 @@
 #include "Enemy.h"
 #include "../Weapons/Projectiles/Projectile.h"
+#include "../Events/EnemyKilled.h"
 
 using namespace brup::enemies;
 using namespace brup::weapons::projectiles;
+using namespace brup::events;
 
 void Enemy::init(engine::Game *game) {
     game->getCollisionPool()->push(this);
@@ -22,7 +24,7 @@ void Enemy::destroy(engine::Game *game) {
 }
 
 void Enemy::kill(engine::Game *game) {
-    game->getEventDispatcher()->dispatch(new engine::Event);
+    game->getEventDispatcher()->dispatch(new EnemyKilled);
     animateDestruction(game);
     destroy(game);
 }

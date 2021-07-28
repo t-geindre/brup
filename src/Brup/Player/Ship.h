@@ -18,14 +18,12 @@ namespace brup::player {
             void collisionWith(Collidable *collidable, engine::Game *game) override;
             void destroy(engine::Game *game) override;
             void animateDestruction(engine::Game *game);
-            void resetPosition(engine::Game *game);
         private:
             sf::Vector2f move;
-            bool dead = false;
-            int deathRecovery, invincible;
             brup::weapons::Weapon *weapon;
             sf::ConvexShape ship;
             sf::Color shipColor;
+            int invincible = 3000; // ms
     };
 }
 

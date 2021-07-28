@@ -20,6 +20,7 @@ namespace engine {
             CollisionPool* getCollisionPool();
             int getElapsedTime();
             void addObject(Initable *initable);
+            void destroy(GameObject *gameObject);
             void enableDebug();
             EventDispatcher* getEventDispatcher();
 

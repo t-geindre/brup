@@ -7,7 +7,7 @@ namespace engine {
     class Event {
         public:
             static const std::string NAME;
-            std::string getName();
+            virtual std::string getName();
     };
 }
 

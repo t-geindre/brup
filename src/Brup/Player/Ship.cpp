@@ -3,17 +3,15 @@
 #include "Ship.h"
 #include "../Enemies/Enemy.h"
 #include "../Effects/ParticleExplosion.h"
+#include "../Events/PlayerKilled.h"
 
 using namespace brup::player;
 using namespace brup::weapons;
 using namespace brup::enemies;
 using namespace brup::effects;
+using namespace brup::events;
 
 void Ship::draw(sf::RenderTarget *target) {
-    if (dead) {
-        return;
-    }
-
     target->draw(ship);
 }
 
@@ -23,15 +21,6 @@ void Ship::setMovements(int x, int y) {
 }
 
 void Ship::update(engine::Game *game) {
-    if (dead) {
-        deathRecovery -= game->getElapsedTime();
-        if (deathRecovery > 0) {
-            return;
-        }
-        dead = false;
-        invincible = 3000;
-    }
-
     if (invincible > 0) {
         invincible -= game->getElapsedTime();
     }
@@ -87,7 +76,10 @@ void Ship::init(engine::Game *game) {
 
     ship.setFillColor(shipColor);
 
-    resetPosition(game);
+    setPosition(
+        game->getRenderTarget()->getView().getCenter().x,
+        game->getRenderTarget()->getView().getSize().y - 40.f
+    );
 
     setMovements(0, 0);
 
@@ -106,17 +98,16 @@ engine::CollisionMask Ship::getCollisionMask() {
 }
 
 void Ship::collisionWith(engine::Collidable *collidable, engine::Game *game) {
-    if (dead || invincible > 0) {
+    if (invincible > 0) {
         return;
     }
 
     if(auto* enemy = dynamic_cast<Enemy*>(collidable)) {
-        dead = true;
-        deathRecovery = 5000;
         weapon->setIsFiring(false);
+        game->getEventDispatcher()->dispatch(new PlayerKilled);
         animateDestruction(game);
         enemy->kill(game);
-        resetPosition(game);
+        destroy(game);
     }
 }
 
@@ -134,11 +125,4 @@ void Ship::animateDestruction(engine::Game *game) {
     explosion->setParticlesCount(200);
     explosion->setParticlesFadeSpeed(.05, .08);
     game->addObject(explosion);
-}
-
-void Ship::resetPosition(engine::Game *game) {
-    setPosition(
-        game->getRenderTarget()->getView().getCenter().x,
-        game->getRenderTarget()->getView().getSize().y - 40.f
-    );
 }
