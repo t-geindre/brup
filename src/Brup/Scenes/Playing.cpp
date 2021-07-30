@@ -1,10 +1,10 @@
 #include <iostream>
 #include "Playing.h"
-#include "../Weapons/LaserMachineGun.h"
-#include "../Backgrounds/Stars.h"
 #include "../Enemies/Netflix.h"
 #include "../Events/PlayerKilled.h"
 #include "../Events/EnemyKilled.h"
+#include "../Events/SceneEnds.h"
+#include "../Weapons/LaserMachineGun.h"
 
 using namespace brup::scenes;
 using namespace brup::player;
@@ -14,38 +14,49 @@ using namespace brup::enemies;
 using namespace brup::events;
 
 void Playing::init(engine::Game *game) {
-    Ship *ship = new Ship;
+    stars = new Stars;
+    player.weapon = new LaserMachineGun;
 
-    LaserMachineGun *weapon = new LaserMachineGun;
-    ship->setWeapon(weapon);
-
-    Stars *stars = new Stars;
+    resetShip(game);
 
     game->addObject(stars);
-    game->addObject(weapon);
-    game->addObject(ship);
+    game->addObject(player.weapon);
 
-    game->getEventDispatcher()->addListener(EnemyKilled::NAME, [&](engine::Event *event) {
+    listeners.push_back(game->getEventDispatcher()->addListener(EnemyKilled::NAME, [&](engine::Event *event) {
         std::cout << "Enemy killed" << std::endl;
-    });
-    game->getEventDispatcher()->addListener(PlayerKilled::NAME, [&](engine::Event *event) {
-        std::cout << "Player killed" << std::endl;
-    });
+    }));
+
+    listeners.push_back(game->getEventDispatcher()->addListener(PlayerKilled::NAME, [&, game](engine::Event *event) {
+        player.lives -= 1;
+        if (player.lives > 0) {
+            player.recoveryProcess = player.recoveryDuration;
+            return;
+        }
+        game->getEventDispatcher()->dispatch(new SceneEnds);
+        destroy(game);
+    }));
 
     engine::GameObject::init(game);
 }
 
 void Playing::update(engine::Game *game) {
+    if (player.recoveryProcess > 0) {
+        player.recoveryProcess -= game->getElapsedTime();
+        if (player.recoveryProcess <= 0) {
+            resetShip(game);
+        }
+    }
+
     if (starting > 0) {
         starting -= .08f * game->getElapsedTime();
         return;
     }
 
-    if (lastSpawnElapsedTime < spawnRate) {
-        lastSpawnElapsedTime += game->getElapsedTime();
+    if (enemies.lastSpawnElapsedTime < enemies.spawnRate) {
+        enemies.lastSpawnElapsedTime += game->getElapsedTime();
         return;
     }
-    lastSpawnElapsedTime = 0;
+    enemies.lastSpawnElapsedTime = 0;
     game->addObject(new Netflix);
 }
 
@@ -60,4 +71,16 @@ void Playing::draw(sf::RenderTarget *target) {
 
 unsigned int Playing::getDrawPriority() {
     return 1000;
+}
+
+void Playing::resetShip(engine::Game *game) {
+    player.ship = new Ship;
+    player.ship->setWeapon(player.weapon);
+    game->addObject(player.ship);
+}
+
+void Playing::destroy(engine::Game *game) {
+    stars->destroy(game);
+    //player.ship->destroy(game);
+    GameObject::destroy(game);
 }

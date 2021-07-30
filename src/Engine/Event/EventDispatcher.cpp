@@ -3,23 +3,25 @@
 
 using namespace engine;
 
-void EventDispatcher::addListener(std::string event, std::function<void(Event* event)> listener) {
-    if (listeners.find(event) == listeners.end()) {
-        listeners[event] = new std::vector<std::function<void(Event*)>>;
-    }
+uint EventDispatcher::addListener(std::string event, std::function<void(Event* event)> callable) {
+    uint listenerId = ++id;
+    listeners.push_back(new Listener{event, callable, listenerId});
 
-    listeners[event]->push_back(listener);
+    return listenerId;
 }
 
 void EventDispatcher::dispatch(Event *event) {
-    std::string name = event->getName();
-
-    if (listeners.find(name) == listeners.end()) {
-        return;
+    for (int i = 0; i < listeners.size(); i++) {
+        if (listeners[i]->eventName == event->getName()) {
+            listeners[i]->callable(event);
+        }
     }
+}
 
-    auto* pool = listeners[name];
-    for (int i = 0; i < pool->size(); i++) {
-        (*pool)[i](event);
+void EventDispatcher::removeListener(uint id) {
+    for (int i = 0; i < listeners.size(); i++) {
+        if (listeners[i]->id == id) {
+            listeners.erase(listeners.begin()+i);
+        }
     }
 }

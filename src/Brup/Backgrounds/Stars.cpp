@@ -1,6 +1,8 @@
 #include "Stars.h"
+#include "../Events/SceneEnds.h"
 
 using namespace brup::backgrounds;
+using namespace brup::events;
 
 void Stars::init(engine::Game *game) {
     for(int i = 0 ; i < starsCount ; i++) {

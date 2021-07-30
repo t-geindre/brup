@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Game.h"
 #include "Scenes/Playing.h"
 #include "Scenes/StageTitle.h"
@@ -9,7 +8,7 @@ using namespace brup::events;
 
 
 Game::Game() : engine::Game() {
-    enableDebug();
+    // enableDebug();
     init("B/R'UP");
 
     getEventDispatcher()->addListener(SceneEnds::NAME, [&](engine::Event *event) {

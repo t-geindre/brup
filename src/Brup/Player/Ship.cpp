@@ -4,6 +4,7 @@
 #include "../Enemies/Enemy.h"
 #include "../Effects/ParticleExplosion.h"
 #include "../Events/PlayerKilled.h"
+#include "../Events/SceneEnds.h"
 
 using namespace brup::player;
 using namespace brup::weapons;
@@ -23,12 +24,14 @@ void Ship::setMovements(int x, int y) {
 void Ship::update(engine::Game *game) {
     if (invincible > 0) {
         invincible -= game->getElapsedTime();
+        shipColor.a = invincible > 0 && invincible % 200 > 150 ? 0 : 255;
+        ship.setFillColor(shipColor);
     }
 
     setMovements(
-            sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ? -1 : (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ? 1 : 0),
-            sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ? -1 : (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ? 1 : 0)
-            );
+          sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ? -1 : (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ? 1 : 0),
+          sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ? -1 : (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ? 1 : 0)
+    );
 
     position.x += .8 * move.x * game->getElapsedTime();
     position.y += .8 * move.y * game->getElapsedTime();
@@ -54,6 +57,10 @@ void Ship::setWeapon(Weapon *weapon) {
 }
 
 void Ship::init(engine::Game *game) {
+    listeners.push_back(game->getEventDispatcher()->addListener(SceneEnds::NAME, [&](engine::Event *event) {
+        // destroy(game);
+    }));
+
     shipColor.r = 251;
     shipColor.g = 87;
     shipColor.b = 66;

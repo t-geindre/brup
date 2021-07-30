@@ -7,12 +7,19 @@
 #include "Event.h"
 
 namespace engine {
+    struct Listener {
+        std::string eventName;
+        std::function<void(Event* event)> callable;
+        uint id;
+    };
     class EventDispatcher {
         public:
-            void addListener(std::string event, std::function<void(Event* event)> listener);
+            uint addListener(std::string event, std::function<void(Event* event)> callable);
+            void removeListener(uint id);
             void dispatch(Event *event);
         private:
-            std::unordered_map<std::string, std::vector<std::function<void(Event*)>>*> listeners;
+            uint id = 0;
+            std::vector<Listener*> listeners;
     };
 }
 

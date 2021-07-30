@@ -4,6 +4,7 @@
 #include "Update/Updatable.h"
 #include "Draw/Drawable.h"
 #include "Initable.h"
+#include <vector>
 
 namespace engine {
     class Game;
@@ -23,6 +24,7 @@ namespace engine {
         protected:
             sf::Vector2f position;
             sf::Vector2f size;
+            std::vector<uint> listeners;
     };
 }
 

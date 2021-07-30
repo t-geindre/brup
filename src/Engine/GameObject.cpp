@@ -18,6 +18,9 @@ void GameObject::update(Game *game) {
 void GameObject::destroy(Game *game) {
     game->getDrawPool()->remove(this);
     game->getUpdatePool()->remove(this);
+    for (int i = 0; i < listeners.size(); i++) {
+        game->getEventDispatcher()->removeListener(listeners[i]);
+    }
     delete this;
 }
 

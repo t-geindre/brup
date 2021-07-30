@@ -1,12 +1,17 @@
 #include "Enemy.h"
 #include "../Weapons/Projectiles/Projectile.h"
 #include "../Events/EnemyKilled.h"
+#include "../Events/SceneEnds.h"
 
 using namespace brup::enemies;
 using namespace brup::weapons::projectiles;
 using namespace brup::events;
 
 void Enemy::init(engine::Game *game) {
+    listeners.push_back(game->getEventDispatcher()->addListener(SceneEnds::NAME, [&](engine::Event *event) {
+        destroy(game);
+    }));
+
     game->getCollisionPool()->push(this);
     engine::GameObject::init(game);
 }
