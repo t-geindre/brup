@@ -1,20 +1,18 @@
 #ifndef GAME_GAMEOBJECT_H
 #define GAME_GAMEOBJECT_H
 
-#include "Update/Updatable.h"
-#include "Draw/Drawable.h"
-#include "Initable.h"
+#include "Game.h"
 #include <vector>
 
 namespace engine {
-    class Game;
-    class GameObject: public Updatable, public Drawable, public Initable {
+    class GameObject {
         public:
-            void init(Game *game) override;
-            void draw(sf::RenderTarget *target) override;
-            unsigned int getDrawPriority() override;
-            void update(Game *game) override;
-            virtual void destroy(Game *game);
+            void init(Game *game);
+            void draw();
+            unsigned int getDrawPriority();
+            void update();
+            void destroy();
+            void doDestroy();
             void setPosition(sf::Vector2f position);
             void setPosition(float x, float y);
             void setSize(sf::Vector2f size);
@@ -27,6 +25,5 @@ namespace engine {
             std::vector<uint> listeners;
     };
 }
-
 
 #endif //GAME_GAMEOBJECT_H
